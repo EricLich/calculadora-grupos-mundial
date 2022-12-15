@@ -1,34 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useFetch } from "./hooks/useFetch";
+import { Fixture, Team } from "./utils/types";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    data: fixture,
+    loading: loadingFixture,
+    error: errorFixture,
+  } = useFetch<Fixture>(
+    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/fechas.json"
+  );
+  const {
+    data: teams,
+    loading: loadingTeams,
+    error: errorTeams,
+  } = useFetch<Team[]>(
+    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/diccEquipos.json"
+  );
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+  return <div>test</div>;
 }
 
-export default App
+export default App;

@@ -21,14 +21,14 @@ export type Team = {
   urlTagEquipo: string;
   repechaje: boolean;
   btnAnexo: boolean;
-  grupo: Grupo; // -> its going to be some letter + num (1 to 4) -> A1 for example	
+  grupo: Grupo;
 }
 
 export type Match = {
   fecha: string;
   numero_partido: number;
   hora: string;
-  grupo: LetraGrupo; // -> its going to be some letter + num (1 to 4) -> A1 for example	
+  grupo: LetraGrupo;
   instancia: string;
   estadio: string;
   tv: string;
