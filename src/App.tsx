@@ -1,4 +1,5 @@
 import Info from "./components/Info";
+import MatchDates from "./components/MatchDates";
 import ResultsTable from "./components/Table/ResultsTable";
 
 const App = () => {
@@ -9,7 +10,9 @@ const App = () => {
           <Info />
           <ResultsTable />
         </div>
-        <div className="flex-1">matches section</div>
+        <div className="flex-1">
+          <MatchDates />
+        </div>
       </div>
     </div>
   );

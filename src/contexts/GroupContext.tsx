@@ -12,6 +12,7 @@ export type GroupContextData = {
   filteredGroupPhaseMatches: Match[];
   selectedGroup: LetraGrupo;
   setSelectedGroup: React.Dispatch<React.SetStateAction<LetraGrupo>>;
+  matchDates: string[];
 };
 
 export const GroupContext = createContext<GroupContextData>({
@@ -19,6 +20,7 @@ export const GroupContext = createContext<GroupContextData>({
   filteredGroupTeams: [],
   selectedGroup: "C",
   setSelectedGroup: (initial) => {},
+  matchDates: [],
 });
 
 const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
@@ -55,6 +57,11 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
     [teams, selectedGroup]
   );
 
+  const matchDates = useMemo(
+    () => [...new Set(filteredGroupPhaseMatches.map((match) => match.fecha))],
+    [filteredGroupPhaseMatches]
+  );
+
   return (
     <GroupContext.Provider
       value={{
@@ -62,6 +69,7 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
         filteredGroupPhaseMatches,
         selectedGroup,
         setSelectedGroup,
+        matchDates,
       }}
     >
       {children}
