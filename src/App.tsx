@@ -21,7 +21,9 @@ const App = () => {
         ))}
       </select>
       {filteredGroupTeams.map((team, index: number) => (
-        <p key={team.id}>{team.nombre}</p>
+        <p className="suecanabold text-2xl" key={team.id}>
+          {team.nombre}
+        </p>
       ))}
     </div>
   );
