@@ -18,7 +18,7 @@ export const useFetch = <T>(fetchUrl: string): useFecthReturn<T> => {
     const abortController = new AbortController();
     setFetchReturn({ ...fetchReturn, loading: true });
     customFetch(fetchUrl).then(res => {
-      setFetchReturn({ ...fetchReturn, data: [...fetchReturn.data, res], loading: false });
+      setFetchReturn({ ...fetchReturn, data: [...fetchReturn.data, ...res], loading: false });
     }).catch(err => setFetchReturn({ ...fetchReturn, error: err }));
 
     return () => {

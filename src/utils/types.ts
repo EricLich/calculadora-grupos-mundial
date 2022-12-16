@@ -4,13 +4,8 @@ export const possibleGroupNumbers = [1, 2, 3, 4] as const;
 export type LetraGrupo = typeof groupsTuple[number];
 export type NumEquipoGrupo = typeof possibleGroupNumbers[number];
 
-export interface Grupo {
-  groupLetter: LetraGrupo,
-  groupTeamNumber: NumEquipoGrupo,
-}
-
 export type Team = {
-  Id: number;
+  id: number;
   nombre: string;
   nombreCorto: string;
   remera: string;
@@ -21,12 +16,12 @@ export type Team = {
   urlTagEquipo: string;
   repechaje: boolean;
   btnAnexo: boolean;
-  grupo: Grupo;
+  grupo: string;
 }
 
 export type Match = {
   fecha: string;
-  numero_partido: number;
+  ['numero-partido']: number;
   hora: string;
   grupo: LetraGrupo;
   instancia: string;
@@ -35,8 +30,8 @@ export type Match = {
   sede: string;
   ciudad: string;
   idpartido: string;
-  equipoA: Grupo;
-  equipoB: Grupo;
+  equipoA: string;
+  equipoB: string;
 }
 
 export type Fixture = Match[];

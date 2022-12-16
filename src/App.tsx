@@ -1,23 +1,30 @@
-import { useFetch } from "./hooks/useFetch";
-import { Fixture, Team } from "./utils/types";
+import React, { useContext } from "react";
+import { GroupContext } from "./contexts/GroupContext";
+import { groupsTuple, LetraGrupo } from "./utils/types";
 
-function App() {
-  const {
-    data: fixture,
-    loading: loadingFixture,
-    error: errorFixture,
-  } = useFetch<Fixture>(
-    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/fechas.json"
-  );
-  const {
-    data: teams,
-    loading: loadingTeams,
-    error: errorTeams,
-  } = useFetch<Team[]>(
-    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/diccEquipos.json"
-  );
+const App = () => {
+  const { filteredGroupTeams, selectedGroup, setSelectedGroup } =
+    useContext(GroupContext);
 
-  return <div>test</div>;
-}
+  const handleGroupSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setSelectedGroup((prev) => (prev = e.target.value as LetraGrupo));
+  };
+
+  return (
+    <div>
+      <select onChange={handleGroupSelect} value={selectedGroup}>
+        {groupsTuple.map((group) => (
+          <option key={group} value={group}>
+            {group}
+          </option>
+        ))}
+      </select>
+      {filteredGroupTeams.map((team, index: number) => (
+        <p key={team.id}>{team.nombre}</p>
+      ))}
+    </div>
+  );
+};
 
 export default App;
