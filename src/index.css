@@ -127,6 +127,7 @@
 
 .suecaslab {
   font-family: suecaslab;
+  color: rgb(246, 122, 147)
 }
 
 @font-face {
@@ -146,6 +147,11 @@
   font-style: normal;
   font-display: swap
 }
+
+.suecananomedium {
+  font-family: suecananomedium;
+}
+
 
 @font-face {
   font-family: suecaslabextralight;

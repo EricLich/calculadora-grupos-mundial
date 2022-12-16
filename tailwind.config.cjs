@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        main: 'rgb(246, 122, 147)'
+      }
     },
   },
   plugins: [],

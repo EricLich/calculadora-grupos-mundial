@@ -37,3 +37,38 @@ export type Match = {
 export type Fixture = Match[];
 
 export type ApiResponseType<T> = T[];
+
+export const tableHeadTags: Record<string, string | { abbr: string, full: string }> = {
+  PTS: {
+    abbr: 'PTS',
+    full: 'Puntos totales',
+  },
+  PJ: {
+    abbr: 'PJ',
+    full: 'Partidos jugados',
+  },
+  G: {
+    abbr: 'G',
+    full: 'Partidos ganados',
+  },
+  E: {
+    abbr: 'E',
+    full: 'Partidos empatados',
+  },
+  P: {
+    abbr: 'P',
+    full: 'Partidos perdidos',
+  },
+  GF: {
+    abbr: 'GF',
+    full: 'Goles a favor',
+  },
+  GC: {
+    abbr: 'GC',
+    full: 'Goles en contra',
+  },
+  DG: {
+    abbr: 'DG',
+    full: 'Diferencia de gol',
+  }
+};
