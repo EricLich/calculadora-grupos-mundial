@@ -19,6 +19,20 @@ export type Team = {
   grupo: string;
 }
 
+export type TeamPointsTableData = {
+  teamName: string;
+  points: number;
+  playedGames: number;
+  wins: number;
+  ties: number;
+  lost: number;
+  goalsMade: number;
+  goalsRecieved: number;
+  goalDifference: number;
+}
+
+export type TableData = TeamPointsTableData[];
+
 export type Match = {
   fecha: string;
   ['numero-partido']: number;
@@ -32,6 +46,17 @@ export type Match = {
   idpartido: string;
   equipoA: string;
   equipoB: string;
+}
+
+export type MatchScore = {
+  teamA: TeamScoreData;
+  teamB: TeamScoreData;
+}
+
+export type TeamScoreData = {
+  teamGroupId: string;
+  teamName: string;
+  score: number;
 }
 
 export type Fixture = Match[];

@@ -1,7 +1,15 @@
-import React, { createContext, ReactNode, useMemo, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 
-import { LetraGrupo, Match, Team } from "../utils/types";
+import { LetraGrupo, Match, TableData, Team } from "../utils/types";
 import { useFetch } from "../hooks/useFetch";
+import scoresTableReducer, { actionType } from "../reducers/scoresTableReducer";
 
 export type GroupsProviderProps = {
   children: ReactNode;
@@ -13,6 +21,7 @@ export type GroupContextData = {
   selectedGroup: LetraGrupo;
   setSelectedGroup: React.Dispatch<React.SetStateAction<LetraGrupo>>;
   matchDates: string[];
+  scoresTableData: TableData;
 };
 
 export const GroupContext = createContext<GroupContextData>({
@@ -21,25 +30,19 @@ export const GroupContext = createContext<GroupContextData>({
   selectedGroup: "C",
   setSelectedGroup: (initial) => {},
   matchDates: [],
+  scoresTableData: [],
 });
 
 const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
-  const {
-    data: fixture,
-    loading: loadingFixture,
-    error: errorFixture,
-  } = useFetch<Match>(
+  const { data: fixture } = useFetch<Match>(
     "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/fechas.json"
   );
-  const {
-    data: teams,
-    loading: loadingTeams,
-    error: errorTeams,
-  } = useFetch<Team>(
+  const { data: teams } = useFetch<Team>(
     "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/diccEquipos.json"
   );
 
   const [selectedGroup, setSelectedGroup] = useState<LetraGrupo>("C");
+  const [scoresTableData, dispatch] = useReducer(scoresTableReducer, []); // replace with reducer
 
   const filteredGroupPhaseMatches = useMemo(
     () =>
@@ -62,6 +65,14 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
     [filteredGroupPhaseMatches]
   );
 
+  useEffect(() => {
+    if (filteredGroupTeams.length > 0) {
+      dispatch({ type: "initGroupTeams", payload: filteredGroupTeams });
+    }
+  }, [filteredGroupTeams]);
+
+  console.log(scoresTableData);
+
   return (
     <GroupContext.Provider
       value={{
@@ -70,6 +81,7 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
         selectedGroup,
         setSelectedGroup,
         matchDates,
+        scoresTableData,
       }}
     >
       {children}
