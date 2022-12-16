@@ -1,7 +1,8 @@
 import React from "react";
+
 import { tableHeadTags } from "../../utils/types";
 
-const TableHeader = () => {
+const TableHead = () => {
   return (
     <div className="flex w-full justify-between border-b border-b-main">
       <div className="w-[30%]">
@@ -24,4 +25,4 @@ const TableHeader = () => {
   );
 };
 
-export default TableHeader;
+export default TableHead;

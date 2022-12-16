@@ -1,11 +1,11 @@
 import React from "react";
 import TableBody from "./TableBody";
-import TableHeader from "./TableHeader";
+import TableHead from "./TableHead";
 
 const ResultsTable = () => {
   return (
     <div className="w-full px-2">
-      <TableHeader />
+      <TableHead />
       <TableBody />
     </div>
   );

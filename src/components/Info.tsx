@@ -3,7 +3,7 @@ import GroupLetterSelector from "./GroupLetterSelector";
 
 const Info = () => {
   const infoHeaderText: string =
-    "Simule los resultados que faltan y mirá como quedaría la tabla".toUpperCase();
+    "Simulá los resultados que faltan y mirá como quedaría la tabla".toUpperCase();
 
   return (
     <div className="flex w-full flex-col items-start">
