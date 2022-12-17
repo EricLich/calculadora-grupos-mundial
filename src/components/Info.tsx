@@ -9,7 +9,7 @@ const Info = () => {
     <div className="flex w-full flex-col items-start">
       <div className="w-full border-b border-gray-300 px-2 mx-auto pb-3 flex items-center justify-start gap-2">
         <h2 className="suecaslabextralight text-3xl text-gray-500">GRUPO</h2>
-        <GroupLetterSelector />
+        {/* <GroupLetterSelector /> */}
       </div>
       <div className="flex justify-between items-end pt-3 w-full px-2">
         <GroupLetter />

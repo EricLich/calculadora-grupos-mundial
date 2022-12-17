@@ -1,15 +1,8 @@
-import React, {
-  createContext,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useReducer,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useMemo, useReducer, useState } from "react";
 
-import { LetraGrupo, Match, TableData, Team } from "../utils/types";
+import { LetraGrupo, Match, TableData, Team, TeamPointsTableData } from "../utils/types";
 import { useFetch } from "../hooks/useFetch";
-import scoresTableReducer, { actionType } from "../reducers/scoresTableReducer";
+import scoresTableReducer, { actionType, ReducerAction } from "../reducers/scoresTableReducer";
 
 export type GroupsProviderProps = {
   children: ReactNode;
@@ -22,6 +15,7 @@ export type GroupContextData = {
   setSelectedGroup: React.Dispatch<React.SetStateAction<LetraGrupo>>;
   matchDates: string[];
   scoresTableData: TableData;
+  dispatch: React.Dispatch<ReducerAction>;
 };
 
 export const GroupContext = createContext<GroupContextData>({
@@ -31,6 +25,7 @@ export const GroupContext = createContext<GroupContextData>({
   setSelectedGroup: (initial) => {},
   matchDates: [],
   scoresTableData: [],
+  dispatch: () => {},
 });
 
 const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
@@ -93,6 +88,7 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
         setSelectedGroup,
         matchDates,
         scoresTableData,
+        dispatch,
       }}
     >
       {children}

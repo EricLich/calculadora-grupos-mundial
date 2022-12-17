@@ -1,12 +1,13 @@
 import { TableData } from "../utils/types";
 
-type ReducerAction = {
+export type ReducerAction = {
   type: ActionTypes;
   payload: any;
 }
 
 export const actionType = {
-  init: 'initGroupTeams'
+  init: 'initGroupTeams',
+  teamUpdate: 'teamUpdate',
 } as const;
 
 type ActionTypeKeys = keyof typeof actionType;
@@ -18,6 +19,12 @@ const scoresTableReducer = (state: TableData, action: ReducerAction) => {
     case actionType.init:
       return [
         ...action.payload
+      ];
+    case actionType.teamUpdate:
+      let selectedTeamIndex = state.findIndex(teamScore => teamScore.teamName === action.payload.teamScore.teamName);
+      return [
+        ...state,
+        state[selectedTeamIndex] = action.payload.teamScore,
       ]
     default:
       return state;
