@@ -17,7 +17,6 @@ const scoresTableReducer = (state: TableData, action: ReducerAction) => {
   switch (action.type) {
     case actionType.init:
       return [
-        ...state,
         ...action.payload
       ]
     default:

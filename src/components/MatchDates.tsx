@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GroupContext } from "../contexts/GroupContext";
+import DayMatches from "./DayMatches";
 
 const MatchDates = () => {
-  return <div>MatchDates</div>;
+  const { matchDates } = useContext(GroupContext);
+
+  return (
+    <div className="w-full flex justify-between items-start">
+      {matchDates.map((date) => (
+        <DayMatches key={date} date={date} />
+      ))}
+    </div>
+  );
 };
 
 export default MatchDates;

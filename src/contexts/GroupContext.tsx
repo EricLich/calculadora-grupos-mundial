@@ -67,11 +67,22 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (filteredGroupTeams.length > 0) {
-      dispatch({ type: "initGroupTeams", payload: filteredGroupTeams });
+      const scoresInitial = filteredGroupTeams.map((team) => {
+        return {
+          teamName: team.nombre,
+          points: 0,
+          playedGames: 0,
+          wins: 0,
+          ties: 0,
+          lost: 0,
+          goalsMade: 0,
+          goalsRecieved: 0,
+          goalDifference: 0,
+        };
+      });
+      dispatch({ type: "initGroupTeams", payload: scoresInitial });
     }
   }, [filteredGroupTeams]);
-
-  console.log(scoresTableData);
 
   return (
     <GroupContext.Provider

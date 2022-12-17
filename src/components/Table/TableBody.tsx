@@ -4,7 +4,7 @@ import { GroupContext } from "../../contexts/GroupContext";
 import TableRow from "./TableRow";
 
 const TableBody = () => {
-  const { filteredGroupTeams } = useContext(GroupContext);
+  const { scoresTableData, filteredGroupTeams } = useContext(GroupContext);
 
   const orderedGroupTeams = useMemo(() => {}, []);
 

@@ -5,7 +5,7 @@ import ResultsTable from "./components/Table/ResultsTable";
 const App = () => {
   return (
     <div className="w-screen h-screen p-5">
-      <div className="mx-auto w-[90%] max-w-[1200px] flex gap-2">
+      <div className="mx-auto w-[95%] max-w-[1300px] flex gap-3">
         <div className="w-[40%] flex flex-col gap-4">
           <Info />
           <ResultsTable />
