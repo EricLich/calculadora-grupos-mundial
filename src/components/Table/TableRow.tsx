@@ -8,8 +8,8 @@ type TableRowProps = {
 const TableRow: React.FC<TableRowProps> = ({ name }) => {
   return (
     <div className="flex w-full justify-between border-b border-b-main ">
-      <div className="w-[30%] ">
-        <h3 className="suecanabold text-sm text-main border-r border-r-main  text-left py-4">
+      <div className="w-[30%] border-r border-r-main">
+        <h3 className="suecanabold text-sm text-main   text-left py-4">
           {name}
         </h3>
       </div>
@@ -18,7 +18,7 @@ const TableRow: React.FC<TableRowProps> = ({ name }) => {
           <div
             key={Object.values(tag)[1]}
             title={Object.values(tag)[1]}
-            className="w-full suecanabold text-sm text-main border-r border-r-main py-4"
+            className="w-full suecanabold text-sm text-main border-r border-r-main py-5"
           >
             <p className="w-[100%] text-center">0</p>
           </div>
