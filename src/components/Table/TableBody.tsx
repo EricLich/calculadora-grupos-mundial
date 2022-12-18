@@ -6,12 +6,16 @@ import TableRow from "./TableRow";
 const TableBody = () => {
   const { scoresTableData, filteredGroupTeams } = useContext(GroupContext);
 
-  const orderedGroupTeams = useMemo(() => {}, []);
+  const orderedGroupTeams = useMemo(() => {
+    return scoresTableData.sort((a, b) => b.points - a.points);
+  }, [scoresTableData]);
+
+  console.log(orderedGroupTeams);
 
   return (
     <div>
-      {filteredGroupTeams.map((team) => (
-        <TableRow key={team.nombre} name={team.nombre} />
+      {orderedGroupTeams.map((team) => (
+        <TableRow key={team.teamName} team={team} />
       ))}
     </div>
   );
