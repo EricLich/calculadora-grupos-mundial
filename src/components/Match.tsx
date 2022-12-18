@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { GroupContext } from "../contexts/GroupContext";
 import { Team } from "../utils/types";
@@ -13,65 +13,93 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
   const [team1Goals, setTeam1Goals] = useState<number>();
   const [team2Goals, setTeam2Goals] = useState<number>();
 
+  const prevGoals1Ref = useRef<number>(0);
+  const prevGoals2Ref = useRef<number>(0);
+
   const handleGoals = (e: React.ChangeEvent<HTMLInputElement>, teamNumber: number): void => {
     if (teamNumber === 1) setTeam1Goals(parseInt(e.target.value));
 
     if (teamNumber === 2) setTeam2Goals(parseInt(e.target.value));
   };
 
-  const handleTeamSoresUpdate = (): void => {
+  const handleTeamSoresUpdate = async (): Promise<void> => {
     let team1Scores = scoresTableData.filter((data) => data.teamName === team1.nombre)[0];
     let team2Scores = scoresTableData.filter((data) => data.teamName === team2.nombre)[0];
 
-    console.log(team1Scores, team1Scores);
+    let matchResultForTeam1 = updateTeamPoints(team1Scores.points, 1);
+    let matchResultForTeam2 = updateTeamPoints(team2Scores.points, 2);
 
-    dispatch({
+    await dispatch({
       type: "teamUpdate",
       payload: {
         teamScore: {
           ...team1Scores,
           //@ts-ignore
-          goalsMade: team1Scores.goalsMade + team1Goals,
+          goalsMade: team1Scores.goalsMade + team1Goals - prevGoals1Ref.current,
           //@ts-ignore
-          goalsRecieved: team1Scores.goalsRecieved + team2Goals,
+          goalsRecieved: team1Scores.goalsRecieved + team2Goals - prevGoals2Ref.current,
           //@ts-ignore
-          goalsDifference: team1Scores.goalsMade + team1Goals - (team1Scores.goalsRecieved + team2Goals),
-          points: updateTeamPoints(team1Scores.points),
+          goalDifference: team1Scores.goalsMade + team1Goals - prevGoals1Ref.current - (team1Scores.goalsRecieved + team2Goals),
+          points: matchResultForTeam1[0],
+          playedGames: team1Scores.playedGames + 1,
+          wins: matchResultForTeam1[1] === "win" ? team1Scores.wins + 1 : team1Scores.wins,
+          ties: matchResultForTeam1[1] === "tie" ? team1Scores.ties + 1 : team1Scores.ties,
+          lost: matchResultForTeam1[1] === "lost" ? team1Scores.lost + 1 : team1Scores.lost,
         },
       },
     });
 
-    dispatch({
+    await dispatch({
       type: "teamUpdate",
       payload: {
         teamScore: {
           ...team2Scores,
           //@ts-ignore
-          goalsMade: team2Scores.goalsMade + team1Goals,
+          goalsMade: team2Scores.goalsMade + team2Goals - prevGoals2Ref.current,
           //@ts-ignore
-          goalsRecieved: team2Scores.goalsRecieved + team1Goals,
+          goalsRecieved: team2Scores.goalsRecieved + team1Goals - prevGoals1Ref.current,
           //@ts-ignore
-          goalsDifference: team2Scores.goalsMade + team2Goals - (team1Scores.goalsRecieved + team1Goals),
-          points: updateTeamPoints(team2Scores.points),
+          goalDifference: team2Scores.goalsMade + team2Goals - prevGoals2Ref.current - (team1Scores.goalsRecieved + team1Goals),
+          points: matchResultForTeam2[0],
+          playedGames: team2Scores.playedGames + 1,
+          wins: matchResultForTeam2[1] === "win" ? team2Scores.wins + 1 : team2Scores.wins,
+          ties: matchResultForTeam2[1] === "tie" ? team2Scores.ties + 1 : team2Scores.ties,
+          lost: matchResultForTeam2[1] === "lost" ? team2Scores.lost + 1 : team2Scores.lost,
         },
       },
     });
+
+    //@ts-ignore
+    prevGoals1Ref.current = team1Goals;
+    //@ts-ignore
+    prevGoals2Ref.current = team2Goals;
   };
 
-  const updateTeamPoints = (teamPoints: number): number => {
-    if (team1Goals && team2Goals) {
-      if (team1Goals > team2Goals) return teamPoints + 3;
-      if (team1Goals > team2Goals) return teamPoints + 1;
-      if (team1Goals < team2Goals) return teamPoints + 0;
+  const updateTeamPoints = (teamPoints: number, teamNum: 1 | 2): [number, "win" | "tie" | "lost"] => {
+    if (team1Goals !== undefined && team2Goals !== undefined) {
+      // have to check with undefined, else a 0 gets detected as falsie and breaks expected behavior
+      if (teamNum === 1) {
+        if (team1Goals > team2Goals) return [teamPoints + 3, "win"];
+        if (team1Goals === team2Goals) return [teamPoints + 1, "tie"];
+        if (team1Goals < team2Goals) return [teamPoints + 0, "lost"];
+      } else {
+        if (team2Goals > team1Goals) return [teamPoints + 3, "win"];
+        if (team2Goals === team1Goals) return [teamPoints + 1, "tie"];
+        if (team2Goals < team1Goals) return [teamPoints + 0, "lost"];
+      }
     }
-    return 0;
+    return [3, "win"];
   };
 
   useEffect(() => {
-    if (team1Goals && team2Goals) {
+    if (team1Goals !== undefined && team2Goals !== undefined) {
       handleTeamSoresUpdate();
     }
   }, [team1Goals, team2Goals]);
+
+  useEffect(() => {
+    console.log(scoresTableData);
+  }, [scoresTableData]);
 
   return (
     <div className="w-full h-full flex flex-col bg-main rounded-md p-2">

@@ -21,10 +21,9 @@ const scoresTableReducer = (state: TableData, action: ReducerAction) => {
         ...action.payload
       ];
     case actionType.teamUpdate:
-      let selectedTeamIndex = state.findIndex(teamScore => teamScore.teamName === action.payload.teamScore.teamName);
       return [
-        ...state,
-        state[selectedTeamIndex] = action.payload.teamScore,
+        ...state.filter(team => team.teamName !== action.payload.teamScore.teamName),
+        action.payload.teamScore
       ]
     default:
       return state;
