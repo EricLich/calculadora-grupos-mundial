@@ -29,10 +29,10 @@ export type TeamPointsTableData = {
   goalsMade: number;
   goalsRecieved: number;
   goalDifference: number;
-  matchesPlayed: {
+  matchesPlayed: Array<{
     teams: [string, string],
     winner: Team['nombre'],
-  }[]
+  }>
 }
 
 export type TableData = TeamPointsTableData[];

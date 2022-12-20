@@ -49,7 +49,7 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (filteredGroupTeams.length > 0) {
-      const scoresInitial = filteredGroupTeams.map((team) => {
+      const scoresInitial: TableData = filteredGroupTeams.map((team) => {
         return {
           teamName: team.nombre,
           points: 0,
