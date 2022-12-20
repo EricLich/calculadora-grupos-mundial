@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 
 import { GroupContext } from "../../contexts/GroupContext";
-import { TableData, TeamPointsTableData } from "../../utils/types";
+import { TeamPointsTableData } from "../../utils/types";
 import TableRow from "./TableRow";
 
 const TableBody = () => {

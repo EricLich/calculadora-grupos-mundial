@@ -41,6 +41,11 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
           wins: matchResultForTeam1[1] === "win" ? team1Scores.wins + 1 : team1Scores.wins,
           ties: matchResultForTeam1[1] === "tie" ? team1Scores.ties + 1 : team1Scores.ties,
           lost: matchResultForTeam1[1] === "lost" ? team1Scores.lost + 1 : team1Scores.lost,
+          matchesPlayed: team1Scores.matchesPlayed.push({
+            teams: [team1.nombre, team2.nombre],
+            //@ts-ignore
+            winner: team1Goals > team2Goals ? team1.nombre : "",
+          }),
         },
       },
     });
@@ -61,6 +66,11 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
           wins: matchResultForTeam2[1] === "win" ? team2Scores.wins + 1 : team2Scores.wins,
           ties: matchResultForTeam2[1] === "tie" ? team2Scores.ties + 1 : team2Scores.ties,
           lost: matchResultForTeam2[1] === "lost" ? team2Scores.lost + 1 : team2Scores.lost,
+          matchesPlayed: team2Scores.matchesPlayed.push({
+            teams: [team1.nombre, team2.nombre],
+            //@ts-ignore
+            winner: team2Goals > team1Goals ? team2.nombre : "",
+          }),
         },
       },
     });
@@ -85,6 +95,7 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
   useEffect(() => {
     if (team1Goals !== undefined && team2Goals !== undefined) {
       handleTeamSoresUpdate();
+      console.log(scoresTableData);
     }
   }, [team1Goals, team2Goals]);
 

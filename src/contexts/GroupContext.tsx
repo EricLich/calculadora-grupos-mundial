@@ -29,36 +29,23 @@ export const GroupContext = createContext<GroupContextData>({
 });
 
 const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
-  const { data: fixture } = useFetch<Match>(
-    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/fechas.json"
-  );
-  const { data: teams } = useFetch<Team>(
-    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/diccEquipos.json"
-  );
+  const { data: fixture } = useFetch<Match>("https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/fechas.json");
+  const { data: teams } = useFetch<Team>("https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/diccEquipos.json");
 
   const [selectedGroup, setSelectedGroup] = useState<LetraGrupo>("C");
-  const [scoresTableData, dispatch] = useReducer(scoresTableReducer, []); // replace with reducer
+  const [scoresTableData, dispatch] = useReducer(scoresTableReducer, []);
 
   const filteredGroupPhaseMatches = useMemo(
     () =>
       fixture.filter(
-        (match) =>
-          match.instancia === "fase-grupos" &&
-          match.equipoA.split("")[0] === selectedGroup &&
-          match.equipoB.split("")[0] === selectedGroup
+        (match) => match.instancia === "fase-grupos" && match.equipoA.split("")[0] === selectedGroup && match.equipoB.split("")[0] === selectedGroup
       ),
     [fixture, selectedGroup]
   );
 
-  const filteredGroupTeams = useMemo(
-    () => teams.filter((team) => team.grupo.split("")[0] === selectedGroup),
-    [teams, selectedGroup]
-  );
+  const filteredGroupTeams = useMemo(() => teams.filter((team) => team.grupo.split("")[0] === selectedGroup), [teams, selectedGroup]);
 
-  const matchDates = useMemo(
-    () => [...new Set(filteredGroupPhaseMatches.map((match) => match.fecha))],
-    [filteredGroupPhaseMatches]
-  );
+  const matchDates = useMemo(() => [...new Set(filteredGroupPhaseMatches.map((match) => match.fecha))], [filteredGroupPhaseMatches]);
 
   useEffect(() => {
     if (filteredGroupTeams.length > 0) {
@@ -73,6 +60,7 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
           goalsMade: 0,
           goalsRecieved: 0,
           goalDifference: 0,
+          matchesPlayed: [],
         };
       });
       dispatch({ type: "initGroupTeams", payload: scoresInitial });
