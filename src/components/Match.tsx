@@ -13,12 +13,8 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
   const [team1Goals, setTeam1Goals] = useState<number>();
   const [team2Goals, setTeam2Goals] = useState<number>();
 
-  const prevGoals1Ref = useRef<number>(0);
-  const prevGoals2Ref = useRef<number>(0);
-
   const handleGoals = (e: React.ChangeEvent<HTMLInputElement>, teamNumber: number): void => {
     if (teamNumber === 1) setTeam1Goals(parseInt(e.target.value));
-
     if (teamNumber === 2) setTeam2Goals(parseInt(e.target.value));
   };
 
@@ -29,17 +25,17 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
     let matchResultForTeam1 = updateTeamPoints(team1Scores.points, 1);
     let matchResultForTeam2 = updateTeamPoints(team2Scores.points, 2);
 
-    await dispatch({
+    dispatch({
       type: "teamUpdate",
       payload: {
         teamScore: {
           ...team1Scores,
           //@ts-ignore
-          goalsMade: team1Scores.goalsMade + team1Goals - prevGoals1Ref.current,
+          goalsMade: team1Scores.goalsMade + team1Goals,
           //@ts-ignore
-          goalsRecieved: team1Scores.goalsRecieved + team2Goals - prevGoals2Ref.current,
+          goalsRecieved: team1Scores.goalsRecieved + team2Goals,
           //@ts-ignore
-          goalDifference: team1Scores.goalsMade + team1Goals - prevGoals1Ref.current - (team1Scores.goalsRecieved + team2Goals),
+          goalDifference: team1Scores.goalsMade + team1Goals - (team1Scores.goalsRecieved + team2Goals),
           points: matchResultForTeam1[0],
           playedGames: team1Scores.playedGames + 1,
           wins: matchResultForTeam1[1] === "win" ? team1Scores.wins + 1 : team1Scores.wins,
@@ -49,17 +45,17 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
       },
     });
 
-    await dispatch({
+    dispatch({
       type: "teamUpdate",
       payload: {
         teamScore: {
           ...team2Scores,
           //@ts-ignore
-          goalsMade: team2Scores.goalsMade + team2Goals - prevGoals2Ref.current,
+          goalsMade: team2Scores.goalsMade + team2Goals,
           //@ts-ignore
-          goalsRecieved: team2Scores.goalsRecieved + team1Goals - prevGoals1Ref.current,
+          goalsRecieved: team2Scores.goalsRecieved + team1Goals,
           //@ts-ignore
-          goalDifference: team2Scores.goalsMade + team2Goals - prevGoals2Ref.current - (team1Scores.goalsRecieved + team1Goals),
+          goalDifference: team2Scores.goalsMade + team2Goals - (team2Scores.goalsRecieved + team1Goals),
           points: matchResultForTeam2[0],
           playedGames: team2Scores.playedGames + 1,
           wins: matchResultForTeam2[1] === "win" ? team2Scores.wins + 1 : team2Scores.wins,
@@ -68,11 +64,6 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
         },
       },
     });
-
-    //@ts-ignore
-    prevGoals1Ref.current = team1Goals;
-    //@ts-ignore
-    prevGoals2Ref.current = team2Goals;
   };
 
   const updateTeamPoints = (teamPoints: number, teamNum: 1 | 2): [number, "win" | "tie" | "lost"] => {
@@ -96,10 +87,6 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
       handleTeamSoresUpdate();
     }
   }, [team1Goals, team2Goals]);
-
-  useEffect(() => {
-    console.log(scoresTableData);
-  }, [scoresTableData]);
 
   return (
     <div className="w-full h-full flex flex-col bg-main rounded-md p-2">

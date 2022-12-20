@@ -10,11 +10,7 @@ const GroupLetterSelector = () => {
     setSelectedGroup((prev) => (prev = e.target.value as LetraGrupo));
   };
   return (
-    <select
-      onChange={handleGroupSelect}
-      value={selectedGroup}
-      className="h-full suecaslabextralight text-xl text-gray-500"
-    >
+    <select onChange={handleGroupSelect} value={selectedGroup} className="h-full suecaslabextralight text-xl text-gray-500">
       {groupsTuple.map((group) => (
         <option key={group} value={group}>
           {group}

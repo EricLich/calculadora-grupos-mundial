@@ -1,47 +1,26 @@
 import React from "react";
 import { TeamPointsTableData } from "../../utils/types";
+import TableRowValue from "./TableRowValue";
 
 type TableRowProps = {
-  team: TeamPointsTableData;
+  teamScore: TeamPointsTableData;
 };
 
-const TableRow: React.FC<TableRowProps> = ({ team }) => {
+const TableRow: React.FC<TableRowProps> = ({ teamScore }) => {
   return (
     <div className="flex w-full justify-between border-b border-b-main ">
       <div className="w-[30%] border-r border-r-main">
-        <h3 className="suecanabold text-sm text-main   text-left py-4">{team.teamName}</h3>
+        <h3 className="suecanabold text-sm text-main   text-left py-4">{teamScore.teamName}</h3>
       </div>
       <div className="flex w-[70%] items-cennter justify-between">
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.points}</p>
-        </div>
-
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.playedGames}</p>
-        </div>
-
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.wins}</p>
-        </div>
-
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.ties}</p>
-        </div>
-
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.lost}</p>
-        </div>
-
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.goalsMade}</p>
-        </div>
-
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.goalsRecieved}</p>
-        </div>
-        <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
-          <p className="w-[100%] text-center">{team.goalDifference}</p>
-        </div>
+        <TableRowValue displayValue={teamScore.points} />
+        <TableRowValue displayValue={teamScore.playedGames} />
+        <TableRowValue displayValue={teamScore.wins} />
+        <TableRowValue displayValue={teamScore.ties} />
+        <TableRowValue displayValue={teamScore.lost} />
+        <TableRowValue displayValue={teamScore.goalsMade} />
+        <TableRowValue displayValue={teamScore.goalsRecieved} />
+        <TableRowValue displayValue={teamScore.goalDifference} />
       </div>
     </div>
   );
