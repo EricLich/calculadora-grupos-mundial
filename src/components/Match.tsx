@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+// @ts-nocheck
+import React, { useContext, useEffect, useState } from "react";
 
 import { GroupContext } from "../contexts/GroupContext";
 import { Team } from "../utils/types";
@@ -30,11 +31,8 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
       payload: {
         teamScore: {
           ...team1Scores,
-          //@ts-ignore
           goalsMade: team1Scores.goalsMade + team1Goals,
-          //@ts-ignore
           goalsRecieved: team1Scores.goalsRecieved + team2Goals,
-          //@ts-ignore
           goalDifference: team1Scores.goalsMade + team1Goals - (team1Scores.goalsRecieved + team2Goals),
           points: matchResultForTeam1[0],
           playedGames: team1Scores.playedGames + 1,
@@ -45,7 +43,6 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
             ...team1Scores.matchesPlayed,
             {
               teams: [team1.nombre, team2.nombre],
-              //@ts-ignore
               winner: team1Goals > team2Goals ? team1.nombre : "",
             },
           ],
@@ -58,11 +55,8 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
       payload: {
         teamScore: {
           ...team2Scores,
-          //@ts-ignore
           goalsMade: team2Scores.goalsMade + team2Goals,
-          //@ts-ignore
           goalsRecieved: team2Scores.goalsRecieved + team1Goals,
-          //@ts-ignore
           goalDifference: team2Scores.goalsMade + team2Goals - (team2Scores.goalsRecieved + team1Goals),
           points: matchResultForTeam2[0],
           playedGames: team2Scores.playedGames + 1,
@@ -73,7 +67,6 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
             ...team2Scores.matchesPlayed,
             {
               teams: [team1.nombre, team2.nombre],
-              //@ts-ignore
               winner: team2Goals > team1Goals ? team2.nombre : "",
             },
           ],
@@ -101,7 +94,6 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
   useEffect(() => {
     if (team1Goals !== undefined && team2Goals !== undefined) {
       handleTeamSoresUpdate();
-      /* console.log(scoresTableData); */
     }
   }, [team1Goals, team2Goals]);
 
