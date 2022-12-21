@@ -6,7 +6,7 @@ type TableRowValueProps = {
 
 const TableRowValue: React.FC<TableRowValueProps> = ({ displayValue }) => {
   return (
-    <div className="w-full suecanabold text-sm text-main border-r border-r-main py-5">
+    <div className="w-full suecanabold text-[12px] md:text-sm text-main border-r border-r-main py-2 md:py-4">
       <p className="w-[100%] text-center">{displayValue}</p>
     </div>
   );

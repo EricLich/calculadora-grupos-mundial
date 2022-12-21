@@ -4,9 +4,9 @@ import ResultsTable from "./components/Table/ResultsTable";
 
 const App = () => {
   return (
-    <div className="w-screen h-screen p-5">
-      <div className="mx-auto w-[95%] max-w-[1300px] flex gap-3">
-        <div className="w-[40%] flex flex-col gap-4">
+    <div className="w-screen overflow-x-hidden min-h-screen pt-4 pb-2 px-1 md:p-5 grid place-content-center">
+      <div className="mx-auto w-[95%] md:max-w-[1300px] flex flex-col md:flex-row gap-1 md:gap-3">
+        <div className="w-full md:w-[40%] flex flex-col gap-4">
           <Info />
           <ResultsTable />
         </div>

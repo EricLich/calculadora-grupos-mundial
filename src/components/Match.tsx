@@ -106,22 +106,22 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
   }, [team1Goals, team2Goals]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-main rounded-md p-2">
-      <div className="w-full flex justify-between items-end py-3 border-b border-white">
-        <p className="flex suecanabold text-white text-lg">{team1?.nombre.toUpperCase()}</p>
+    <div className="w-full h-full flex md:flex-col gap-4 bg-main rounded-md p-2">
+      <div className="w-full flex justify-between items-center md:items-end  py-1 md:py-3 md:border-b border-white">
+        <p className="flex suecanabold text-white text-sm md:text-lg">{team1?.nombre.toUpperCase()}</p>
         <input
           type="number"
           name="goalsMade"
-          className="bg-red-600 w-[20%] text-white rounded-md p-1 pr-2 text-right suecaslabbold text-lg focus:outline-none"
+          className="bg-red-600 w-[30%] md:w-[20%] text-white rounded-md p-1 pr-2 text-right suecaslabbold text-lg focus:outline-none"
           onChange={(e) => handleGoals(e, 1)}
         />
       </div>
-      <div className="w-full flex justify-between items-end py-3 border-b border-white">
-        <p className="flex suecanabold text-white text-lg">{team2?.nombre.toUpperCase()}</p>
+      <div className="w-full flex justify-between items-center md:items-end  py-1 md:py-3 md:border-b border-white">
+        <p className="flex suecanabold text-white text-sm md:text-lg">{team2?.nombre.toUpperCase()}</p>
         <input
           type="number"
           name="goalsMade"
-          className="bg-red-600 w-[20%] text-white rounded-md p-1 pr-2 text-right suecaslabbold text-lg focus:outline-none"
+          className="bg-red-600 w-[30%] md:w-[20%] text-white rounded-md p-1 pr-2 text-right suecaslabbold text-lg focus:outline-none"
           onChange={(e) => handleGoals(e, 2)}
         />
       </div>

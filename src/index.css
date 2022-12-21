@@ -153,6 +153,10 @@ input[type=number] {
   font-display: swap
 }
 
+.suecananosemibold {
+  font-family: suecananosemibold;
+}
+
 @font-face {
   font-family: suecananomedium;
   src: url("https://especialess3.lanacion.com.ar/fonts/SuecaNano-Medium.eot");

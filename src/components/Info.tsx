@@ -10,10 +10,10 @@ const Info = () => {
         <h2 className="suecaslabextralight text-3xl text-gray-500">GRUPO</h2>
         <GroupLetterSelector />
       </div>
-      <div className="flex justify-between items-end pt-3 w-full px-2">
+      <div className="flex justify-between items-end pt-3 w-full md:px-2">
         <GroupLetter />
         <div className="flex flex-col w-[70%] items-end self-end">
-          <p className="suecanabold text-sm text-right text-gray-500">{infoHeaderText}</p>
+          <p className="suecanabold text-[10px] md:text-sm text-right text-gray-500">{infoHeaderText}</p>
           <p>arrow</p>
         </div>
       </div>
