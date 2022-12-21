@@ -16,6 +16,8 @@ export type GroupContextData = {
   matchDates: string[];
   scoresTableData: TableData;
   dispatch: React.Dispatch<ReducerAction>;
+  loadingFixture: boolean;
+  loadingTeams: boolean;
 };
 
 export const GroupContext = createContext<GroupContextData>({
@@ -26,11 +28,17 @@ export const GroupContext = createContext<GroupContextData>({
   matchDates: [],
   scoresTableData: [],
   dispatch: () => {},
+  loadingFixture: false,
+  loadingTeams: false,
 });
 
 const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
-  const { data: fixture } = useFetch<Match>("https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/fechas.json");
-  const { data: teams } = useFetch<Team>("https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/diccEquipos.json");
+  const { data: fixture, loading: loadingFixture } = useFetch<Match>(
+    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/fechas.json"
+  );
+  const { data: teams, loading: loadingTeams } = useFetch<Team>(
+    "https://especialess3.lanacion.com.ar/22/03/mundial2022-fixture/data/diccEquipos.json"
+  );
 
   const [selectedGroup, setSelectedGroup] = useState<LetraGrupo>("C");
   const [scoresTableData, dispatch] = useReducer(scoresTableReducer, []);
@@ -77,6 +85,8 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
         matchDates,
         scoresTableData,
         dispatch,
+        loadingFixture,
+        loadingTeams,
       }}
     >
       {children}
