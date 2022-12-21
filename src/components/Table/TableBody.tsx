@@ -7,7 +7,7 @@ import TableRow from "./TableRow";
 const TableBody = () => {
   const { scoresTableData } = useContext(GroupContext);
 
-  /* const orderByWins = (scores: TableData): TableData => {
+  const orderByWins = (scores: TableData): TableData => {
     for (let i: number = 0; i < scores.length; i++) {
       let tempScore = scores[i];
       if (scores[i]?.teamName?.includes(scores[i + 1]?.teamName)) {
@@ -20,7 +20,7 @@ const TableBody = () => {
       }
     }
     return scores;
-  }; */
+  };
 
   const orderedGroupTeams = useMemo(() => {
     let orderedScores = scoresTableData.sort((a, b) => b.points - a.points); // ordered by points
@@ -58,9 +58,9 @@ const TableBody = () => {
         possibleEqualReOrder = possibleEqualReOrder!.sort((a: TeamPointsTableData, b: TeamPointsTableData) => b!.goalsMade - a!.goalsMade);
         orderedScores = [...new Set([...possibleEqualReOrder, ...orderedScores])].filter((score) => score);
 
-        /* if (orderedScores[0].goalsMade === orderedScores[1].goalsMade) {
+        if (orderedScores[0].goalsMade === orderedScores[1].goalsMade) {
           orderedScores = orderByWins(orderedScores);
-        } */
+        }
       }
     }
 

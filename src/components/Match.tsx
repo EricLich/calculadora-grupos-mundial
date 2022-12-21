@@ -22,8 +22,6 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
     let team1Scores = scoresTableData.filter((data) => data.teamName === team1.nombre)[0];
     let team2Scores = scoresTableData.filter((data) => data.teamName === team2.nombre)[0];
 
-    console.log(team1Scores, team2Scores);
-
     let matchResultForTeam1 = updateTeamPoints(team1Scores.points, 1);
     let matchResultForTeam2 = updateTeamPoints(team2Scores.points, 2);
 
