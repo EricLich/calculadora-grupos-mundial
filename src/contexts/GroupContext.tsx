@@ -61,7 +61,6 @@ const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
         return {
           teamName: team.nombre,
           points: 0,
-          playedGames: 0,
           wins: 0,
           ties: 0,
           lost: 0,

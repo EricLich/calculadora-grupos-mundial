@@ -14,7 +14,7 @@ const TableRow: React.FC<TableRowProps> = ({ teamScore }) => {
       </div>
       <div className="flex w-[70%] items-cennter justify-between">
         <TableRowValue displayValue={teamScore.points} />
-        <TableRowValue displayValue={teamScore.playedGames} />
+        <TableRowValue displayValue={teamScore.matchesPlayed.length} />
         <TableRowValue displayValue={teamScore.wins} />
         <TableRowValue displayValue={teamScore.ties} />
         <TableRowValue displayValue={teamScore.lost} />

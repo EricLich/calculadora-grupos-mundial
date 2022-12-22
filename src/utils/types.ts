@@ -22,7 +22,6 @@ export type Team = {
 export type TeamPointsTableData = {
   teamName: string;
   points: number;
-  playedGames: number;
   wins: number;
   ties: number;
   lost: number;
@@ -31,7 +30,7 @@ export type TeamPointsTableData = {
   goalDifference: number;
   matchesPlayed: Array<{
     teams: [string, string],
-    winner: Team['nombre'],
+    winner: Team['nombre'] | string,
   }>
 }
 
