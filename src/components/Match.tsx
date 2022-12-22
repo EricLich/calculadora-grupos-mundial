@@ -15,8 +15,20 @@ const Match: React.FC<MatchProps> = ({ team1, team2 }) => {
   const [team2Goals, setTeam2Goals] = useState<number>();
 
   const handleGoals = (e: React.ChangeEvent<HTMLInputElement>, teamNumber: number): void => {
-    if (teamNumber === 1) setTeam1Goals(parseInt(e.target.value));
-    if (teamNumber === 2) setTeam2Goals(parseInt(e.target.value));
+    if (teamNumber === 1) {
+      if (e.target.value !== "") {
+        setTeam1Goals(parseInt(e.target.value));
+      } else {
+        setTeam1Goals(0);
+      }
+    }
+    if (teamNumber === 2) {
+      if (e.target.value !== "") {
+        setTeam2Goals(parseInt(e.target.value));
+      } else {
+        setTeam2Goals(0);
+      }
+    }
   };
 
   const handleTeamSoresUpdate = async (): Promise<void> => {
